@@ -48,7 +48,7 @@ function increaseVersion() {
 
     readonly newVersion=$(semver bump $versionType $version)
 
-    echo -n -e "
+    echo -n -e " \033[1;32m
     Performing a $versionType increment on $version version, which results in:
     $PROJECT_NAME:$newVersion
     "
