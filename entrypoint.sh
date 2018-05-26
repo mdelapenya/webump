@@ -1,6 +1,7 @@
 #!/bin/bash
 
 readonly PROJECT_NAME="${PROJECT_NAME}"
+readonly DRY_RUN="${DRY_RUN:-false}"
 readonly ALLOW_GIT_TAG="${ALLOW_GIT_TAG:-true}"
 readonly VERSION_FILENAME="${VERSION_FILENAME:-VERSION.txt}"
 readonly VERSION_TYPE="${VERSION_TYPE}"
@@ -47,41 +48,49 @@ function increaseVersion() {
     local versionType=${VERSION_TYPE}
 
     readonly newVersion=$(semver bump ${versionType} ${version})
+    readonly gitTag="v${newVersion}"
 
     echo -n -e " \033[1;32m
-    Performing a ${versionType} increment on ${version} version, which results in:
-    $PROJECT_NAME:${newVersion}
-    "
+    Performing a ${versionType} increment on ${version} version, which results in: $PROJECT_NAME:${newVersion}
+    \033[0m"
 
     cd $WORKDIR
 
     local currentBranchName=$(git rev-parse --abbrev-ref HEAD)
 
-    echo "Setting git config for ${GIT_CONFIG_USER_NAME} and ${GIT_CONFIG_USER_EMAIL}"
+    if [ "${DRY_RUN}" == "true" ]; then
+        echo "The file ${VERSION_FILENAME} will be replaced with ${newVersion}"
+        echo "A commit in master branch with this ${versionType} increment will be created in the repository."
 
-    git config --global user.name "${GIT_CONFIG_USER_NAME}"
-    git config --global user.email "${GIT_CONFIG_USER_EMAIL}"
+        if [ "${ALLOW_GIT_TAG}" == "true" ]; then
+            echo "The ${gitTag} git tag will be created in the repository."
+        fi
+    else
+        echo ${newVersion} > ${VERSION_FILE}
+        echo "Setting git config for ${GIT_CONFIG_USER_NAME} and ${GIT_CONFIG_USER_EMAIL}"
 
-    git stash
-    git checkout master
+        git config --global user.name "${GIT_CONFIG_USER_NAME}"
+        git config --global user.email "${GIT_CONFIG_USER_EMAIL}"
 
-    echo ${newVersion} > ${VERSION_FILE}
+        git stash
+        git checkout master
 
-    git add ${VERSION_FILE}
-    git commit -m "Bump ${versionType} version: ${newVersion}"
+        echo ${newVersion} > ${VERSION_FILE}
 
-    if [ "${ALLOW_GIT_TAG}" == "true" ]; then
-        local gitTag="v${newVersion}"
+        git add ${VERSION_FILE}
+        git commit -m "Bump ${versionType} version: ${newVersion}"
 
-        echo -n -e "
-    Creating Git tag for ${newVersion}: ${gitTag}
-    "
-        git tag -d ${gitTag} 2>/dev/null || true
-        git tag ${gitTag}
+        if [ "${ALLOW_GIT_TAG}" == "true" ]; then
+            echo -n -e "
+        Creating Git tag for ${newVersion}: ${gitTag}
+        "
+            git tag -d ${gitTag} 2>/dev/null || true
+            git tag ${gitTag}
+        fi
+
+        git checkout ${currentBranchName}
+        git stash pop || true
     fi
-
-    git checkout ${currentBranchName}
-    git stash pop || true
 }
 
 function main {
