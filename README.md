@@ -18,6 +18,12 @@ Defines whether the running container creates a Git tag on your project or not.
 
 If not set, the running container create the git tag. If you want to disallow the creation of the tag, set this environment variable with any value different than `true`.
 
+### DRY_RUN
+
+Defines whether the running container performs the operations or it simply logs a message.
+
+If not set, the running container will perform the operations. If you want to show the results of the execution, set this environment variable with a value of `true`.
+
 ### PROJECT_NAME
 
 Defines the name of the project to be versioned.
@@ -49,6 +55,16 @@ SEMVER_REGEX="^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(\\-[0-9A-Za-z
 In english, the version must match X.Y.Z(-PRERELEASE)(+BUILD) where X, Y and Z are positive integers, `PRERELEASE` is an optional string composed of alphanumeric characters and hyphens and `BUILD` is also an optional string composed of alphanumeric characters and hyphens.
 
 ## Examples
+
+Creating a minor change in Dry-Run mode:
+```shell
+$ docker run --rm \
+    -v $PATH_TO_YOUR_PROJECT:/version \
+    -e DRY_RUN=true \
+    -e PROJECT_NAME=mdelapenya/myimage \
+    -e VERSION_TYPE=minor \
+    mdelapenya/version-manager:1.0.0
+```
 
 Creating a minor change in a Docker image:
 ```shell
