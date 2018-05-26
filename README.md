@@ -53,7 +53,7 @@ $ docker run --rm \
     mdelapenya/version-manager:1.0.0
 ```
 
-Creating a pathc change in a project:
+Creating a patch change in a project:
 ```shell
 $ docker run --rm \
     -v $PATH_TO_YOUR_PROJECT:/version \
