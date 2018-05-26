@@ -53,8 +53,10 @@ function increaseVersion() {
 
     echo $newVersion > ${VERSION_FILE}
 
+    git stash
     git add ${VERSION_FILE}
     git commit -m "Bump $versionType version: $newVersion"
+    git stash pop
 
     if [ "${ALLOW_GIT_TAG}" == "true" ]; then
         local gitTag="v$newVersion"
