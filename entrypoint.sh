@@ -49,6 +49,8 @@ function increaseVersion() {
     Performing a $versionType increment on $version version, which results in:
     $PROJECT_NAME:$newVersion
     "
+
+    echo $newVersion > ${VERSION_FILE}
 }
 
 function main {
