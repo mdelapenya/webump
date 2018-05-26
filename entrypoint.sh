@@ -51,6 +51,9 @@ function increaseVersion() {
     "
 
     echo $newVersion > ${VERSION_FILE}
+
+    cd $WORKDIR
+    git tag "v$newVersion"
 }
 
 function main {
