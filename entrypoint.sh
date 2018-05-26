@@ -46,11 +46,11 @@ function increaseVersion() {
     local version=$(cat ${VERSION_FILE})
     local versionType=${VERSION_TYPE}
 
-    readonly newVersion=$(semver bump $versionType $version)
+    readonly newVersion=$(semver bump ${versionType} ${version})
 
     echo -n -e " \033[1;32m
-    Performing a $versionType increment on $version version, which results in:
-    $PROJECT_NAME:$newVersion
+    Performing a ${versionType} increment on ${version} version, which results in:
+    $PROJECT_NAME:${newVersion}
     "
 
     cd $WORKDIR
@@ -65,22 +65,22 @@ function increaseVersion() {
     git stash
     git checkout master
 
-    echo $newVersion > ${VERSION_FILE}
+    echo ${newVersion} > ${VERSION_FILE}
 
     git add ${VERSION_FILE}
-    git commit -m "Bump $versionType version: $newVersion"
+    git commit -m "Bump ${versionType} version: ${newVersion}"
 
     if [ "${ALLOW_GIT_TAG}" == "true" ]; then
-        local gitTag="v$newVersion"
+        local gitTag="v${newVersion}"
 
         echo -n -e "
-    Creating Git tag for $newVersion: ${gitTag}
+    Creating Git tag for ${newVersion}: ${gitTag}
     "
         git tag -d ${gitTag} 2>/dev/null || true
         git tag ${gitTag}
     fi
 
-    git checkout $currentBranchName
+    git checkout ${currentBranchName}
     git stash pop || true
 }
 
