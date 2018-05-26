@@ -6,6 +6,8 @@ readonly VERSION_FILENAME="${VERSION_FILENAME:-VERSION.txt}"
 readonly VERSION_TYPE="${VERSION_TYPE}"
 readonly WORKDIR="/version"
 readonly VERSION_FILE="${WORKDIR}/${VERSION_FILENAME}"
+readonly GIT_CONFIG_USER_NAME="versionbumper"
+readonly GIT_CONFIG_USER_EMAIL="versionbumper@versionbumper.io"
 
 function relaunch() {
     echo "Please set it up and relaunch."
@@ -51,12 +53,22 @@ function increaseVersion() {
     $PROJECT_NAME:$newVersion
     "
 
-    echo $newVersion > ${VERSION_FILE}
+    cd $WORKDIR
+
+    local currentBranchName=$(git rev-parse --abbrev-ref HEAD)
+
+    echo "Setting git config for ${GIT_CONFIG_USER_NAME} and ${GIT_CONFIG_USER_EMAIL}"
+
+    git config --global user.name "${GIT_CONFIG_USER_NAME}"
+    git config --global user.email "${GIT_CONFIG_USER_EMAIL}"
 
     git stash
+    git checkout master
+
+    echo $newVersion > ${VERSION_FILE}
+
     git add ${VERSION_FILE}
     git commit -m "Bump $versionType version: $newVersion"
-    git stash pop
 
     if [ "${ALLOW_GIT_TAG}" == "true" ]; then
         local gitTag="v$newVersion"
@@ -64,10 +76,12 @@ function increaseVersion() {
         echo -n -e "
     Creating Git tag for $newVersion: ${gitTag}
     "
-        cd $WORKDIR
         git tag -d ${gitTag} 2>/dev/null || true
         git tag ${gitTag}
     fi
+
+    git checkout $currentBranchName
+    git stash pop || true
 }
 
 function main {
