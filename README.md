@@ -12,6 +12,12 @@ It's mandatory to define a volume to your project's workspace, so that the runni
 
 Following environment variables **must** be set in the running container:
 
+### ALLOW_GIT_TAG
+
+Defines whether the running container creates a Git tag on your project or not.
+
+If not set, the running container create the git tag. If you want to disallow the creation of the tag, set this environment variable with any value different than `true`.
+
 ### PROJECT_NAME
 
 Defines the name of the project to be versioned.

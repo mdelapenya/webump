@@ -1,6 +1,7 @@
 #!/bin/bash
 
 readonly PROJECT_NAME="${PROJECT_NAME}"
+readonly ALLOW_GIT_TAG="${ALLOW_GIT_TAG:-true}"
 readonly VERSION_FILENAME="${VERSION_FILENAME:-VERSION.txt}"
 readonly VERSION_TYPE="${VERSION_TYPE}"
 readonly WORKDIR="/version"
@@ -52,8 +53,16 @@ function increaseVersion() {
 
     echo $newVersion > ${VERSION_FILE}
 
-    cd $WORKDIR
-    git tag "v$newVersion"
+    if [ "${ALLOW_GIT_TAG}" == "true" ]; then
+        local gitTag="v$newVersion"
+
+        echo -n -e "
+    Creating Git tag for $newVersion: ${gitTag}
+    "
+        cd $WORKDIR
+        git tag -d ${gitTag} 2>/dev/null || true
+        git tag ${gitTag}
+    fi
 }
 
 function main {
