@@ -53,6 +53,9 @@ function increaseVersion() {
 
     echo $newVersion > ${VERSION_FILE}
 
+    git add ${VERSION_FILE}
+    git commit -m "Bump $versionType version: $newVersion"
+
     if [ "${ALLOW_GIT_TAG}" == "true" ]; then
         local gitTag="v$newVersion"
 
