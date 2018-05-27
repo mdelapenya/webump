@@ -66,7 +66,6 @@ function increaseVersion() {
             echo "The ${gitTag} git tag will be created in the repository."
         fi
     else
-        echo ${newVersion} > ${VERSION_FILE}
         echo "Setting git config for ${GIT_CONFIG_USER_NAME} and ${GIT_CONFIG_USER_EMAIL}"
 
         git config --global user.name "${GIT_CONFIG_USER_NAME}"
