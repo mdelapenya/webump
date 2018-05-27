@@ -43,7 +43,7 @@ function validateEnvVar() {
     fi
 }
 
-function increaseVersion() {
+function bumpVersion() {
     local version=$(cat ${VERSION_FILE})
     local versionType=${VERSION_TYPE}
 
@@ -93,7 +93,7 @@ function increaseVersion() {
 }
 
 function main {
-    increaseVersion
+    bumpVersion
 }
 
 validate
