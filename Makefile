@@ -9,17 +9,17 @@ build:
 		--no-cache \
         --build-arg BUILD_VERSION=${VERSION} \
         --build-arg BUILD_DATE=${TODAY} \
-        --build-arg SCHEMA_NAME=version-manager \
+        --build-arg SCHEMA_NAME=versionbumper \
         --build-arg SCHEMA_VENDOR=mdelapenya \
         --build-arg BUILD_VCS_REF=${COMMIT} \
-        --build-arg BUILD_VCS_URL="https://github.com/mdelapenya/version-manager" \
-		-t mdelapenya/version-manager:${VERSION} \
+        --build-arg BUILD_VCS_URL="https://github.com/mdelapenya/versionbumper" \
+		-t mdelapenya/versionbumper:${VERSION} \
 		.
 
 push:
 	echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
-	docker push mdelapenya/version-manager:${VERSION}
-	docker push mdelapenya/version-manager:latest
+	docker push mdelapenya/versionbumper:${VERSION}
+	docker push mdelapenya/versionbumper:latest
 
 update-lib:
 	curl https://raw.githubusercontent.com/fsaintjacques/semver-tool/${SEMVER_VERSION}/src/semver \
