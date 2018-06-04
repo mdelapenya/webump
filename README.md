@@ -1,4 +1,4 @@
-# Version Manager
+# Version Bumper
 
 This Docker image pretends to define an opinionated way to manage the versioning process of a software project which already follows **semantic versioning**.
 
