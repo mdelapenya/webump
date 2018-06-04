@@ -31,8 +31,7 @@ We read the `gradle.properties` file at project root folder, and look for the `v
 
 We read a `VERSION.txt` file at the project root folder, which must contain just a valid Semver version. Then we replace that value to perform the bump.
 
-This `VERSION.txt` file acn be overriden passing a `VERSION_FILENAME` environment variable, with the name of the file containing the Semver version value.
-
+This `VERSION.txt` file can be overriden passing a `VERSION_FILENAME` environment variable, with the name of the file containing the Semver version value.
 
 ## Volumes
 
