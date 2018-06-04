@@ -17,10 +17,7 @@ build:
         .
 
 push:
-	echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
-	docker push mdelapenya/versionbumper:${VERSION}
-        docker tag mdelapenya/versionbumper:${VERSION} latest
-	docker push mdelapenya/versionbumper:latest
+	IMAGE_TAG=${VERSION} .travis/push-image.sh
 
 update-lib:
 	curl https://raw.githubusercontent.com/fsaintjacques/semver-tool/${SEMVER_VERSION}/src/semver \
