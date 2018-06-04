@@ -106,6 +106,14 @@ function bumpVersion() {
   readonly newVersion=$(semver bump ${versionType} ${version})
   readonly gitTag="v${newVersion}"
 
+  if [ "${gitTag}" == "v" ]; then
+    echo -n -e " \033[1;31m
+    The version present at [${VERSION_FILE}] does not follow Semver: ${version}
+    $(relaunch)
+    \033[0m"
+    exit 1
+  fi
+
   echo -n -e " \033[1;32m
     Performing a ${versionType} increment on ${version} version, which results in: ${newVersion}
     \033[0m"
