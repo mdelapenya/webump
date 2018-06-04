@@ -15,6 +15,25 @@ The process will consist in the following steps:
 - Move to your working branch
 - Pop stashd changes
 
+## Supported Project types
+
+At this moment we support NodeJS, Gradle and custom type projects.
+
+### NodeJS
+
+We read the `package.json` file at project root folder, and we execute `npm version $TYPE` to perform the bump.
+
+### Gradle
+
+We read the `gradle.properties` file at project root folder, and look for the `version=` key. Then we replace that value to perform the bump.
+
+### Custom type
+
+We read a `VERSION.txt` file at the project root folder, which must contain just a valid Semver version. Then we replace that value to perform the bump.
+
+This `VERSION.txt` file acn be overriden passing a `VERSION_FILENAME` environment variable, with the name of the file containing the Semver version value.
+
+
 ## Volumes
 
 It's mandatory to define a volume to your project's workspace, so that the running container is able to find the versioning descriptor.
@@ -90,6 +109,16 @@ Creating a patch change in a project:
 ```shell
 $ docker run --rm \
     -v $PATH_TO_YOUR_PROJECT:/version \
+    -e PROJECT_NAME=myapp \
+    -e VERSION_TYPE=patch \
+    mdelapenya/versionbumper:1.0.0
+```
+
+Creating a patch change in a project using a different version file:
+```shell
+$ docker run --rm \
+    -v $PATH_TO_YOUR_PROJECT:/version \
+    -e VERSION_FILENAME=.version 
     -e PROJECT_NAME=myapp \
     -e VERSION_TYPE=patch \
     mdelapenya/versionbumper:1.0.0
