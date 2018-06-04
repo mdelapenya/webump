@@ -4,6 +4,17 @@ This Docker image pretends to define an opinionated way to manage the versioning
 
 It uses the awesome [`semver` script](https://github.com/fsaintjacques/semver-tool) created by @fsaintjacques, wrapping it in a Docker container and adding an entrypoint to perform specific tasks related to versioning.
 
+The process will consist in the following steps:
+
+- Read the versioning file in your project
+- Calculate the next version related to the bump you are doing: minor, major, patch, etc.
+- Stash your existing changes in the git branch you are working on
+- Move to the master branch
+- Create a git commit in the master branch with the bump
+- Create a git tag at that commit with the bump, removing existing with same same
+- Move to your working branch
+- Pop stashd changes
+
 ## Volumes
 
 It's mandatory to define a volume to your project's workspace, so that the running container is able to find the versioning descriptor.
