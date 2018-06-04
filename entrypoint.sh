@@ -10,8 +10,16 @@ readonly VERSION_FILE="${WORKDIR}/${VERSION_FILENAME}"
 readonly GIT_CONFIG_USER_NAME="versionbumper"
 readonly GIT_CONFIG_USER_EMAIL="versionbumper@versionbumper.io"
 
+function readVersionFromFile() {
+    echo "$(cat ${VERSION_FILE})"
+}
+
 function relaunch() {
     echo "Please set it up and relaunch."
+}
+
+function updateVersionFile() {
+    echo ${1} > ${VERSION_FILE}
 }
 
 function validate() {
@@ -44,7 +52,7 @@ function validateEnvVar() {
 }
 
 function bumpVersion() {
-    local version=$(cat ${VERSION_FILE})
+    local version=$(readVersionFromFile)
     local versionType=${VERSION_TYPE}
 
     readonly newVersion=$(semver bump ${versionType} ${version})
@@ -74,7 +82,7 @@ function bumpVersion() {
         git stash
         git checkout master
 
-        echo ${newVersion} > ${VERSION_FILE}
+        updateVersionFile ${newVersion}
 
         git add ${VERSION_FILE}
         git commit -m "Bump ${versionType} version: ${newVersion}"
