@@ -1,0 +1,17 @@
+sudo: required
+
+addons:
+  chrome: stable
+
+deploy:
+  - provider: script
+    script: make push
+    on:
+      branch: master
+
+services:
+  - docker
+
+before_script:
+  - sudo .travis/setup.sh
+  - make build
