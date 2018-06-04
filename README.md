@@ -63,7 +63,7 @@ $ docker run --rm \
     -e DRY_RUN=true \
     -e PROJECT_NAME=mdelapenya/myimage \
     -e VERSION_TYPE=minor \
-    mdelapenya/version-manager:1.0.0
+    mdelapenya/versionbumper:1.0.0
 ```
 
 Creating a minor change in a Docker image:
@@ -72,7 +72,7 @@ $ docker run --rm \
     -v $PATH_TO_YOUR_PROJECT:/version \
     -e PROJECT_NAME=mdelapenya/myimage \
     -e VERSION_TYPE=minor \
-    mdelapenya/version-manager:1.0.0
+    mdelapenya/versionbumper:1.0.0
 ```
 
 Creating a patch change in a project:
@@ -81,5 +81,5 @@ $ docker run --rm \
     -v $PATH_TO_YOUR_PROJECT:/version \
     -e PROJECT_NAME=myapp \
     -e VERSION_TYPE=patch \
-    mdelapenya/version-manager:1.0.0
+    mdelapenya/versionbumper:1.0.0
 ```
