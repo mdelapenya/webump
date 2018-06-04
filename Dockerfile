@@ -5,7 +5,7 @@ RUN set -x && \
     apk update && \
     apk upgrade && \
     apk add \
-        bash git && \
+        bash git jq nodejs && \
     mkdir /version && \
     rm -rf /var/cache/apk/*
 
