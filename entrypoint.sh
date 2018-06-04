@@ -19,7 +19,7 @@ function relaunch() {
 }
 
 function updateVersionFile() {
-    echo ${1} > ${VERSION_FILE}
+    echo ${2} > ${VERSION_FILE}
 }
 
 function validate() {
@@ -82,7 +82,7 @@ function bumpVersion() {
         git stash
         git checkout master
 
-        updateVersionFile ${newVersion}
+        updateVersionFile ${version} ${newVersion} ${versionType}
 
         git add ${VERSION_FILE}
         git commit -m "Bump ${versionType} version: ${newVersion}"
