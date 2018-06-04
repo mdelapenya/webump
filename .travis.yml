@@ -12,5 +12,5 @@ deploy:
 services:
   - docker
 
-before_script:
+script:
   - make build
