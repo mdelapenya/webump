@@ -5,16 +5,7 @@ SEMVER_VERSION ?= 2.0.0
 VERSION ?= $(shell cat .version)
 
 build:
-	docker build \
-		--no-cache \
-        --build-arg BUILD_VERSION=${VERSION} \
-        --build-arg BUILD_DATE=${TODAY} \
-        --build-arg SCHEMA_NAME=versionbumper \
-        --build-arg SCHEMA_VENDOR=mdelapenya \
-        --build-arg BUILD_VCS_REF=${COMMIT} \
-        --build-arg BUILD_VCS_URL="https://github.com/mdelapenya/versionbumper" \
-		-t mdelapenya/versionbumper:${VERSION} \
-		.
+	ROOT=${ROOT} TODAY=${TODAY} COMMIT=${COMMIT} SEMVER_VERSION=${SEMVER_VERSION} VERSION=${VERSION} ./build-images.sh
 
 push:
 	echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
