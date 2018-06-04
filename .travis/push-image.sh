@@ -24,7 +24,7 @@ push_image() {
   \033[0m"
 
   docker push ${full_name}
-  docker tag ${full_name} latest
+  docker tag ${full_name} ${name}:latest
 	docker push ${name}:latest
 }
 
