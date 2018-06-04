@@ -53,10 +53,6 @@ Defines whether the running container performs the operations or it simply logs 
 
 If not set, the running container will perform the operations. If you want to show the results of the execution, set this environment variable with a value of `true`.
 
-### PROJECT_NAME
-
-Defines the name of the project to be versioned.
-
 ### VERSION_FILENAME
 
 Defines the name of the file containing a semantic versioning, valid version value.
@@ -90,7 +86,6 @@ Creating a minor change in Dry-Run mode:
 $ docker run --rm \
     -v $PATH_TO_YOUR_PROJECT:/version \
     -e DRY_RUN=true \
-    -e PROJECT_NAME=mdelapenya/myimage \
     -e VERSION_TYPE=minor \
     mdelapenya/versionbumper:1.0.0
 ```
@@ -99,7 +94,6 @@ Creating a minor change in a Docker image:
 ```shell
 $ docker run --rm \
     -v $PATH_TO_YOUR_PROJECT:/version \
-    -e PROJECT_NAME=mdelapenya/myimage \
     -e VERSION_TYPE=minor \
     mdelapenya/versionbumper:1.0.0
 ```
@@ -108,7 +102,6 @@ Creating a patch change in a project:
 ```shell
 $ docker run --rm \
     -v $PATH_TO_YOUR_PROJECT:/version \
-    -e PROJECT_NAME=myapp \
     -e VERSION_TYPE=patch \
     mdelapenya/versionbumper:1.0.0
 ```
@@ -118,7 +111,6 @@ Creating a patch change in a project using a different version file:
 $ docker run --rm \
     -v $PATH_TO_YOUR_PROJECT:/version \
     -e VERSION_FILENAME=.version 
-    -e PROJECT_NAME=myapp \
     -e VERSION_TYPE=patch \
     mdelapenya/versionbumper:1.0.0
 ```

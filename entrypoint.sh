@@ -1,6 +1,5 @@
 #!/bin/bash
 
-readonly PROJECT_NAME="${PROJECT_NAME}"
 readonly DRY_RUN="${DRY_RUN:-false}"
 readonly ALLOW_GIT_TAG="${ALLOW_GIT_TAG:-true}"
 readonly VERSION_FILENAME_GRADLE="gradle.properties"
@@ -81,7 +80,6 @@ function updateVersionFile() {
 }
 
 function validate() {
-  validateEnvVar "PROJECT_NAME"
   validateEnvVar "VERSION_TYPE"
 }
 
@@ -109,7 +107,7 @@ function bumpVersion() {
   readonly gitTag="v${newVersion}"
 
   echo -n -e " \033[1;32m
-    Performing a ${versionType} increment on ${version} version, which results in: $PROJECT_NAME:${newVersion}
+    Performing a ${versionType} increment on ${version} version, which results in: ${newVersion}
     \033[0m"
 
   cd $WORKDIR
