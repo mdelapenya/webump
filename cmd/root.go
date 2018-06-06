@@ -7,6 +7,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var dryRun bool
+
+func init() {
+	rootCmd.Flags().BoolVarP(
+		&dryRun, "dry-run", "d", false,
+		"Enables dry-run mode, which only prints out the result of the bump. (default false)")
+}
+
 var rootCmd = &cobra.Command{
 	Use:   "webump",
 	Short: "webump (We Bump) makes it easier to bump WeDeploy's projects.",
