@@ -7,12 +7,16 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var allowGitTag bool
 var dryRun bool
 
 func init() {
 	rootCmd.Flags().BoolVarP(
 		&dryRun, "dry-run", "d", false,
 		"Enables dry-run mode, which only prints out the result of the bump. (default false)")
+	rootCmd.Flags().BoolVarP(
+		&allowGitTag, "allow-git-tag", "g", true,
+		"Enables allow-git-tag mode, which creates a git tag with the bump.")
 }
 
 var rootCmd = &cobra.Command{
