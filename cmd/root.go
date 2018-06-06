@@ -13,11 +13,11 @@ var versionFileName string
 
 func init() {
 	rootCmd.Flags().BoolVarP(
-		&dryRun, "dry-run", "d", false,
-		"Enables dry-run mode, which only prints out the result of the bump. (default false)")
-	rootCmd.Flags().BoolVarP(
 		&allowGitTag, "allow-git-tag", "g", true,
 		"Enables allow-git-tag mode, which creates a git tag with the bump.")
+	rootCmd.Flags().BoolVarP(
+		&dryRun, "dry-run", "d", false,
+		"Enables dry-run mode, which only prints out the result of the bump. (default false)")
 	rootCmd.Flags().StringVarP(
 		&versionFileName, "version-file", "v", "VERSION.txt",
 		"Sets the file where to read the version to bump.")
