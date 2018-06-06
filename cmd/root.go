@@ -9,6 +9,8 @@ import (
 
 var allowGitTag bool
 var dryRun bool
+var gitEmail string
+var gitUsername string
 var versionFileName string
 
 func init() {
@@ -18,6 +20,12 @@ func init() {
 	rootCmd.Flags().BoolVarP(
 		&dryRun, "dry-run", "d", false,
 		"Enables dry-run mode, which only prints out the result of the bump. (default false)")
+	rootCmd.Flags().StringVarP(
+		&gitEmail, "git-email", "m", "webump@wedeploy.com",
+		"Sets the email for the git configuration, required to perform the git commit.")
+	rootCmd.Flags().StringVarP(
+		&gitUsername, "git-username", "u", "webump",
+		"Sets the username for the git configuration, required to perform the git commit.")
 	rootCmd.Flags().StringVarP(
 		&versionFileName, "version-file", "v", "VERSION.txt",
 		"Sets the file where to read the version to bump.")
