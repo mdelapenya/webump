@@ -2,11 +2,14 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 	"os"
 
+	"github.com/mdelapenya/versionbumper/bump"
 	"github.com/spf13/cobra"
 )
 
+var bumpType string
 var dryRun bool
 var gitEmail string
 var gitTag bool
@@ -14,6 +17,10 @@ var gitUsername string
 var versionFileName string
 
 func init() {
+	rootCmd.Flags().StringVarP(
+		&bumpType, "bump-type", "b", bump.Patch.String(),
+		`Sets the bump type to perform, where the possible values are Major, Minor, Patch, Prerel
+		 and Build. (default Patch)`)
 	rootCmd.Flags().BoolVarP(
 		&dryRun, "dry-run", "d", false,
 		"Enables dry-run mode, which only prints out the result of the bump. (default false)")
@@ -47,4 +54,12 @@ func Execute() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
+
+	err := bump.Bump(dryRun, gitEmail, gitTag, gitUsername, versionFileName)
+
+	if err != nil {
+		log.Fatalln("Impossible to bump", err)
+	}
+
+	log.Println("Bumped!")
 }
