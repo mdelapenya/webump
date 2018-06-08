@@ -1,6 +1,6 @@
 package main
 
-import "github.com/mdelapenya/versionbumper/cmd"
+import "github.com/mdelapenya/webump/cmd"
 
 func main() {
 	cmd.Execute()
