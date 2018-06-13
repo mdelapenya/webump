@@ -16,7 +16,7 @@ docker_login() {
 
 push_image() {
   local image=$1
-  local name=${IMAGE_PREFIX}/versionbumper
+  local name=${IMAGE_PREFIX}/webump
   local full_name=${name}:${IMAGE_TAG}
 
   echo -n -e " \033[1;31m
