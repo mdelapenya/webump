@@ -6,7 +6,8 @@ It uses the awesome [`semver` script](https://github.com/fsaintjacques/semver-to
 
 The process will consist in the following steps:
 
-- Read the versioning file in your project
+- Detect project type
+- Read the versioning file based on project type
 - Calculate the next version related to the bump you are doing: minor, major, patch, etc.
 - Stash your existing changes in the git branch you are working on
 - Move to the master branch
