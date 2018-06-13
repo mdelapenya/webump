@@ -1,4 +1,4 @@
-# Version Bumper
+# WeBump
 
 This Docker image pretends to define an opinionated way to manage the versioning process of a software project which already follows **semantic versioning**.
 
@@ -87,7 +87,7 @@ $ docker run --rm \
     -v $PATH_TO_YOUR_PROJECT:/version \
     -e DRY_RUN=true \
     -e VERSION_TYPE=minor \
-    mdelapenya/versionbumper:1.0.0
+    mdelapenya/webump:1.0.0
 ```
 
 Creating a minor change in a Docker image:
@@ -95,7 +95,7 @@ Creating a minor change in a Docker image:
 $ docker run --rm \
     -v $PATH_TO_YOUR_PROJECT:/version \
     -e VERSION_TYPE=minor \
-    mdelapenya/versionbumper:1.0.0
+    mdelapenya/webump:1.0.0
 ```
 
 Creating a patch change in a project:
@@ -103,7 +103,7 @@ Creating a patch change in a project:
 $ docker run --rm \
     -v $PATH_TO_YOUR_PROJECT:/version \
     -e VERSION_TYPE=patch \
-    mdelapenya/versionbumper:1.0.0
+    mdelapenya/webump:1.0.0
 ```
 
 Creating a patch change in a project using a different version file:
@@ -112,5 +112,5 @@ $ docker run --rm \
     -v $PATH_TO_YOUR_PROJECT:/version \
     -e VERSION_FILENAME=.version 
     -e VERSION_TYPE=patch \
-    mdelapenya/versionbumper:1.0.0
+    mdelapenya/webump:1.0.0
 ```
