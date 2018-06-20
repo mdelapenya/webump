@@ -54,6 +54,18 @@ Defines whether the running container performs the operations or it simply logs 
 
 If not set, the running container will perform the operations. If you want to show the results of the execution, set this environment variable with a value of `true`.
 
+## GIT_CONFIG_USER_NAME
+
+Defines the author of the commit representing the bump.
+
+If not set, it will use `webump`.
+
+## GIT_CONFIG_USER_EMAIL
+
+Defines the email of the commit representing the bump.
+
+If not set, it will use `webump@webump.io`.
+
 ### VERSION_FILENAME
 
 Defines the name of the file containing a semantic versioning, valid version value.
@@ -87,6 +99,8 @@ Creating a minor change in Dry-Run mode:
 $ docker run --rm \
     -v $PATH_TO_YOUR_PROJECT:/version \
     -e DRY_RUN=true \
+    -e GIT_CONFIG_USER_NAME=mdelapenya \
+    -e GIT_CONFIG_USER_EMAIL=manuel.delapenya@gmail.com \
     -e VERSION_TYPE=minor \
     mdelapenya/webump:1.0.0
 ```
