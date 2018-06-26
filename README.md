@@ -80,7 +80,7 @@ Defines the type of the increment to be performed. The valid values are:
 |:---- |:----------- |
 |major|Updates the `X` part of a `x.y.z` version, which is a positive integer|
 |minor|Updates the `Y` part of a `x.y.z` version, which is a positive integer|
-|patch|Updates the `X` part of a `x.y.z` version, which is a positive integer|
+|patch|Updates the `Z` part of a `x.y.z` version, which is a positive integer|
 |prerel `prerel`|Optional string composed of alphanumeric characters and hyphens|
 |build `build`|Optional string composed of alphanumeric characters and hyphens.|
 
